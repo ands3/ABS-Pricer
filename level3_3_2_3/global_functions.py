@@ -20,7 +20,7 @@ def sumproduct(total, num_pair):
     total : int/float
         a number
     num_pair : tuple of int/float
-        number pair
+        tuple of two numbers
 
     Returns
     =======
