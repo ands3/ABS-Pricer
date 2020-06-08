@@ -92,8 +92,8 @@ class StructuredSecurities(object):
             raise ValueError('The total notional is not a positive number.')
         # check that mode is one of 'sequential' or 'pro rata'
         elif mode not in ['sequential', 'pro rata']:
-            raise ValueError('The mode for determining principal due given is {mode}. It should be one of '
-                             '\'sequential\' or \'pro rate\'.'.format(mode=mode))
+            raise ValueError(f'The mode for determining principal due given is {mode}. It should be one of '
+                             '\'sequential\' or \'pro rate\'.')
         # inputs is valid
         else:
             self._totalNotional = total_notional
@@ -110,7 +110,7 @@ class StructuredSecurities(object):
 
     # Python 2 uses next() whereas Python 3 uses __next__()
     # cf. https://stackoverflow.com/questions/21665485/how-to-make-a-custom-object-iterable
-    def next(self):
+    def __next__(self):
         '''
         Return next item in StructuredSecurities iterator.
         '''
@@ -217,8 +217,8 @@ class StructuredSecurities(object):
             raise TypeError('subordination_level should be a string.')
         # subordination_level already exists
         elif subordination_level in self._subordination_levels:
-            raise Exception('The subordination level given {level} already exists. Please enter a different '
-                            'subordination level.'.format(level=subordination_level))
+            raise Exception(f'The subordination level given {subordination_level} already exists. Please enter a '
+                            'different subordination level.')
         # relaxation coefficient is not a positive float
         elif not (type(relaxationCoef) is float and relaxationCoef > 0):
             raise ValueError('relaxationCoef should be a positive float.')
@@ -241,7 +241,7 @@ class StructuredSecurities(object):
         # check if mode input is valid
         # mode is not one of 'sequential' or 'pro rata'
         if mode not in ['sequential', 'pro rata']:
-            raise ValueError('The mode given is {mode}. It should be one of \'sequential\' or \'pro rata\'.')
+            raise ValueError(f'The mode given is {mode}. It should be one of \'sequential\' or \'pro rata\'.')
         else:
             # mode is valid
             self._mode = mode

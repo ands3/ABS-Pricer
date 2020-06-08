@@ -4,7 +4,7 @@ Andy Zhang
 Case Study: Script for derived Tranche class.
 '''
 
-from tranche import Tranche  # using Tranche class
+from liabilities.tranche import Tranche  # using Tranche class
 import logging  # using logging module
 
 '''=================================================
@@ -147,7 +147,7 @@ class StandardTranche(Tranche):
             raise ValueError('period should be a positive integer.')
         # principal due already recorded this period
         elif period in self._prinDue:
-            raise Exception('The principal due for period {period} has already been recorded.'.format(period=period))
+            raise Exception(f'The principal due for period {period} has already been recorded.')
         # principal due this period not recorded yet
         else:
             self._prinDue[period] = principal_due
@@ -170,8 +170,7 @@ class StandardTranche(Tranche):
             raise ValueError('period should be a positive integer.')
         # principal payment already made this period
         elif period in self._prinPmts:
-            raise Exception('The principal payment for period {period} has already been made.'.
-                            format(period=period))
+            raise Exception(f'The principal payment for period {period} has already been made.')
         # principal payment hasn't been made this period
         else:
             self._prinPmts[period] = principal_pmt
@@ -194,8 +193,7 @@ class StandardTranche(Tranche):
             raise ValueError('period should be a positive integer.')
         # interest payment already made this period
         elif period in self._interestPmts:
-            raise Exception('The interest payment for period {period} has already been made.'.
-                            format(period=period))
+            raise Exception(f'The interest payment for period {period} has already been made.')
         # interest payment hasn't been made this period
         else:
             self._interestPmts[period] = interest_pmt
@@ -218,8 +216,7 @@ class StandardTranche(Tranche):
             raise ValueError('period should be a positive integer.')
         # principal shortfall already recorded this period
         elif period in self._prinShortfalls:
-            raise Exception('The principal shortfall for period {period} has already been recorded.'.
-                            format(period=period))
+            raise Exception(f'The principal shortfall for period {period} has already been recorded.')
         # principal shortfall hasn't been recorded this period
         else:
             self._prinShortfalls[period] = principal_shortfall
@@ -242,8 +239,7 @@ class StandardTranche(Tranche):
             raise ValueError('period should be a positive integer.')
         # interest shortfall already recorded this period
         elif period in self._interestShortfalls:
-            raise Exception('The interest shortfall for period {period} has already been recorded.'.
-                            format(period=period))
+            raise Exception(f'The interest shortfall for period {period} has already been recorded.')
         # interest shortfall hasn't been recorded this period
         else:
             self._interestShortfalls[period] = interest_shortfall
@@ -289,8 +285,7 @@ class StandardTranche(Tranche):
                 # check if principal payment already made for this period
                 # principal payment already made this period
                 if period in self._prinPmts:
-                    raise Exception('The principal payment for period {period} has already been made.'.
-                                    format(period=period))
+                    raise Exception('The principal payment for period {period} has already been made.')
                 # principal payment hasn't been made this period
                 else:
                     if period == 0:
@@ -330,8 +325,7 @@ class StandardTranche(Tranche):
                 # check if interest payment already made for this period
                 # interest payment already made this period
                 if period in self._interestPmts:
-                    raise Exception('The interest payment for period {period} has already been made.'.
-                                    format(period=period))
+                    raise Exception(f'The interest payment for period {period} has already been made.')
                 # interest payment hasn't been made this period
                 else:
                     if period == 0:
@@ -350,18 +344,17 @@ class StandardTranche(Tranche):
         Return the notional amount still owed to the tranche for the current period (after any payments made).
         '''
         # total principal payments made up to and including current period
-        total_prin_pmts = sum(v for k, v in self._prinPmts.iteritems() if k <= period)
+        total_prin_pmts = sum(v for k, v in self._prinPmts.items() if k <= period)
 
         # period is 0
         if period == 0:
             return self._notional
         # period greater than 0
         else:
-            logging.debug('notionalBalance() method computes the notional amount still owed for period {period} (after'
-                          ' any payments have been made) as the initial tranche balance of {balance} minus total '
-                          'principal payments of {totalPrinPmts} plus current principal shortfall of {prinShortfall}'.
-                          format(period=period, balance=self._notional, totalPrinPmts=total_prin_pmts,
-                                 prinShortfall=self._prinShortfalls[period]))
+            logging.debug(f'notionalBalance() method computes the notional amount still owed for period {period} (after'
+                          f' any payments have been made) as the initial tranche balance of {self._notional} minus total'
+                          f' principal payments of {total_prin_pmts} plus current principal shortfall of '
+                          f'{self._prinShortfalls[period]}')
             # Note: Mark clarified that it is principal shortfall that is considered and not interest shortfall as the
             # Case Study had originally said
             return self._notional - total_prin_pmts + self._prinShortfalls[period]
@@ -381,10 +374,9 @@ class StandardTranche(Tranche):
                 return 0.
             # period greater than 0
             else:
-                logging.debug('interestDue() method compute the interest due for period {period} as the tranche balance'
-                              ' at the beginning of period {period} of {balance} times the annual rate of {rate} '
-                              'divided by 12.'.format(period=period, balance=self.notionalBalance(period - 1),
-                                                      rate=self._rate))
+                logging.debug(f'interestDue() method compute the interest due for period {period} as the tranche balance'
+                              f' at the beginning of period {period} of {self.notionalBalance(period - 1)} times the '
+                              f'annual rate of {self._rate} divided by 12.')
                 return self.notionalBalance(period - 1) * self._rate / 12
 
     def reset(self):

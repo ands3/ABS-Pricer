@@ -7,6 +7,7 @@ Case Study: Script for the Tranche class
 import numpy  # using numpy module
 import operator  # using operator module
 import logging  # using logging module
+from functools import reduce  # using selective importing
 
 '''=================================================
 Tranche class:
@@ -153,10 +154,10 @@ class Tranche(object):
         '''
         Return the annualized internal rate of return (IRR).
         '''
-        logging.debug('IRR() class method takes the tranche notional of {notional} and all periodic payments, both '
-                      'interest and principal, made to the tranche of {totalPmts} and uses those to compute IRR via '
+        logging.debug(f'IRR() class method takes the tranche notional of {notional} and all periodic payments, both '
+                      f'interest and principal, made to the tranche of {totalPmts} and uses those to compute IRR via '
                       'numpy.irr(). The resulting number is then annualized to get the annualized Internal Rate of '
-                      'Return.'.format(notional=notional, totalPmts=totalPmts))
+                      'Return.')
         return numpy.irr([-notional] + totalPmts) * 12
 
     # Part 2.5
@@ -168,8 +169,8 @@ class Tranche(object):
         Return the reduction in yield (DIRR).
         '''
         IRR = cls.IRR(notional, totalPmts)
-        logging.debug('DIRR() class method takes the IRR computed via the class method IRR() of {irr} and subtracts '
-                      'that from the tranche rate of {rate} to get the Reduction in Yield.'.format(irr=IRR, rate=rate))
+        logging.debug(f'DIRR() class method takes the IRR computed via the class method IRR() of {IRR} and subtracts '
+                      f'that from the tranche rate of {rate} to get the Reduction in Yield.')
         # Note: Since numpy.irr() is a numerical technique, sometimes it returns an IRR that is higher than rate. This
         # results in a negative DIRR. When calculating yield, this poses some problems as WAL is positive and so
         # applying sqrt() results in complex numbers. To remedy this issue, max() is applied.
