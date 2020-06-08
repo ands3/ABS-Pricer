@@ -5,7 +5,7 @@ Case Study: Script for the LoanPool class
 '''
 
 from level5_5_2_2_to_5_2_3.loans import FixedRateLoan  # using FixedRateLoan class
-from global_functions import WeightedAverageMaturity, WeightedAverageRate  # using WAM and WAR
+from level3_3_2_3.global_functions import WeightedAverageMaturity, WeightedAverageRate  # using WAM and WAR
 import random  # using random module
 import time  # using time module
 
@@ -91,17 +91,17 @@ class LoanPool(object):
         # check that inputs are valid
         # loan_active is not a list of nonnegative int
         if type(loan_active) is not list or not all(type(ln) is int and ln >= 0 for ln in loan_active):
-            print 'loan_active needs to be a list of nonnegative int.'
+            print('loan_active needs to be a list of nonnegative int.')
         # args is not a tuple / list of Loan objects and/or the rates in the Loan objects is None
         elif not all(isinstance(ln, FixedRateLoan) for ln in args):
-            print 'args input needs to be a tuple / list of Loan objects.'
+            print('args input needs to be a tuple / list of Loan objects.')
         # loan_ids is not a list of unique ints
         elif type(loan_ids) is not list or not all(type(ln) is int for ln in loan_ids) or \
                 len(loan_ids) != len(set(loan_ids)):
-            print 'loan_ids needs to be a list of unique int.'
+            print('loan_ids needs to be a list of unique int.')
         # loan_active, args, and loan_ids are not of the same size
         elif len(loan_active) != len(args) or len(loan_active) != len(loan_ids) or len(loan_ids) != len(args):
-            print 'loan_active, args, and loan_ids need to be of the same size.'
+            print('loan_active, args, and loan_ids need to be of the same size.')
         # inputs are valid
         else:
             self._loan_active = loan_active
@@ -119,7 +119,7 @@ class LoanPool(object):
 
     # Python 2 uses next() whereas Python 3 uses __next__()
     # cf. https://stackoverflow.com/questions/21665485/how-to-make-a-custom-object-iterable
-    def next(self):
+    def __next__(self):
         '''
         Return next item in LoanPool iterator.
         '''
@@ -157,7 +157,7 @@ class LoanPool(object):
         # iloan_pool is not a tuple / list of Loan objects
         if not all(isinstance(ln, FixedRateLoan) for ln in iloan_pool):
             # error message
-            print 'The loan pool must be a tuple / list of Loan objects.'
+            print('The loan pool must be a tuple / list of Loan objects.')
         # iloan_pool valid
         else:
             self._loan_pool = iloan_pool
@@ -177,7 +177,7 @@ class LoanPool(object):
         # iloan_active is not a list of int
         if type(iloan_active) is not list or not all(type(ln) is int and ln >= 0 for ln in iloan_active):
             # error message
-            print 'The list of each loan\'s period of activity must be a list of nonnegative int.'
+            print('The list of each loan\'s period of activity must be a list of nonnegative int.')
         # iloan_active valid
         else:
             self._loan_active = iloan_active
@@ -212,7 +212,7 @@ class LoanPool(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period > 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # total loan balance in period
@@ -228,7 +228,7 @@ class LoanPool(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # aggregate principal due in period
@@ -244,7 +244,7 @@ class LoanPool(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # aggregate interest due in period
@@ -260,7 +260,7 @@ class LoanPool(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # aggregate total payment due in period

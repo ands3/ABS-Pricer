@@ -4,12 +4,14 @@ Andy Zhang
 Stripped-down version from Exercises 1.5.7 - 1.5.8 for the purposes of Exercise 3.1.2 c that uses the reduce function
 '''
 
+from functools import reduce  # selective importing to get reduce()
+
 '''=================================================
 sumproduct function:
 We write a function that takes a number and a tuple of two numbers, adds the first number to the product of the numbers 
 in the tuple, and returns the resulting sum
 ================================================='''
-def sumproduct(total, (num1, num2)):
+def sumproduct(total, num_pair):
     '''
     Output the result of total + num1*num2
 
@@ -17,15 +19,13 @@ def sumproduct(total, (num1, num2)):
     ==========
     total : int/float
         a number
-    num1 : int/float
-        first number in pair
-    num2 : int/float
-        second number in pair
+    num_pair : tuple of int/float
+        number pair
 
     Returns
     =======
     return value : float
-        total + num1*num2
+        total + num_pair[0]*num_pair[1]
 
     Examples
     ========
@@ -34,9 +34,9 @@ def sumproduct(total, (num1, num2)):
     '''
 
     # inputs are all numbers
-    if type(total) is int or type(total) is float or type(num1) is int or type(num1) is float or type(num2) is int \
-            or type(num2) is float:
-        return total + num1*num2
+    if type(total) is int or type(total) is float or type(num_pair[0]) is int or type(num_pair[0]) is float or \
+            type(num_pair[1]) is int or type(num_pair[1]) is float:
+        return total + num_pair[0]*num_pair[1]
 
 '''=================================================
 WeightedAverageMaturity function:
@@ -67,17 +67,17 @@ def WeightedAverageMaturity(mortgage_terms):
     # check that input is valid
     # input is not a list of at least one mortgage term
     if type(mortgage_terms) is not list or len(mortgage_terms) == 0:
-        print 'The list of mortgage terms needs to have at least one mortgage term.'
+        print('The list of mortgage terms needs to have at least one mortgage term.')
         return
     # list doesn't consist of tuples of 3 elements
     elif any(type(term) is not tuple or len(term) != 3 for term in mortgage_terms):
-        print 'Each mortgage terms in the list of mortgage terms needs to be a tuple of (face, rate, term).'
+        print('Each mortgage terms in the list of mortgage terms needs to be a tuple of (face, rate, term).')
         return
     # tuples aren't of type (int/float, float, int)
     elif any(not (type(amount) is int or type(amount) is float) or type(rate) is not float or type(term) is not int
              for amount, rate, term in mortgage_terms):
-        print 'Each mortgage term (face, rate, term) in the list of mortgage terms needs to be of (int/float, float, ' \
-              'int).'
+        print('Each mortgage term (face, rate, term) in the list of mortgage terms needs to be of (int/float, float, ' \
+              'int).')
         return
 
     # get mortgage amounts and terms
@@ -122,17 +122,17 @@ def WeightedAverageRate(mortgage_terms):
     # check that input is valid
     # input is not a list of at least one mortgage term
     if type(mortgage_terms) is not list or len(mortgage_terms) == 0:
-        print 'The list of mortgage terms needs to contain at least one mortgage term.'
+        print('The list of mortgage terms needs to contain at least one mortgage term.')
         return
     # list doesn't consist of tuples of 3 elements
     elif any(type(term) is not tuple or len(term) != 3 for term in mortgage_terms):
-        print 'Each mortgage terms in the list of mortgage terms needs to be a tuple of (face, rate, term).'
+        print('Each mortgage terms in the list of mortgage terms needs to be a tuple of (face, rate, term).')
         return
     # tuples aren't of type (int/float, float, int)
     elif any(not (type(amount) is int or type(amount) is float) or type(rate) is not float or type(term) is not int
              for amount, rate, term in mortgage_terms):
-        print 'Each mortgage term (face, rate, term) in the list of mortgage terms needs to be of (int/float, float, ' \
-              'int).'
+        print('Each mortgage term (face, rate, term) in the list of mortgage terms needs to be of (int/float, float, ' \
+              'int).')
         return
 
     # get mortgage amounts and rates
@@ -144,6 +144,6 @@ def WeightedAverageRate(mortgage_terms):
     total_mortgage = sum(amounts)
 
     # Weighted Average Rate
-    war = reduce(lambda total, (amount, rate): total + amount*rate, zip(amounts, rates), 0.0) / total_mortgage
+    war = reduce(lambda total, amount_rate: total + amount_rate[0]*amount_rate[1], zip(amounts, rates), 0.0) / total_mortgage
 
     return war
