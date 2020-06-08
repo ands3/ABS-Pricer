@@ -21,7 +21,7 @@ We test the doWaterfall(); simulateWaterfall(); and runMonte(), with and without
 def main():
     logging.getLogger().setLevel(logging.WARN)
 
-    print '\n=============== Part 1 ==============\n'
+    print('\n=============== Part 1 ==============\n')
 
     # initialize lists for data
     loanIds = []  # loan number
@@ -35,7 +35,7 @@ def main():
     # check if the provided csv file of loan data exists
     # csv file of loan data doesn't exist
     if not os.path.exists('Loans.csv'):
-        print 'The Loans.csv file doesn\'t exist.'
+        print('The Loans.csv file doesn\'t exist.')
     # csv file of loan data exists
     else:
         # open csv file of loan data
@@ -92,7 +92,7 @@ def main():
             .2)
         structured_securities.addTranche('StandardTranche', .08, 'B', .2, .8)
 
-        print '---------------- Testing doWaterfall() function (write to csv part) ----------------\n'
+        print('---------------- Testing doWaterfall() function (write to csv part) ----------------\n')
 
         # call doWaterfall() to get payment values for each period on both assets and liabilities sides as well as each
         # tranche's IRR, DIRR, AL, and rating under the possibility of defaults in the loans
@@ -112,21 +112,20 @@ def main():
         # check that 'assets.csv' and 'liabilities.csv' both exist
         # 'asset.csv' and 'liabilities.csv' both exist
         if os.path.exists('assets.csv') and os.path.exists('liabilities.csv'):
-            print 'Both assets.csv and liabilities.csv have been created.'
+            print('Both assets.csv and liabilities.csv have been created.')
 
-        print '\n=============== Part 2 ==============\n'
+        print('\n=============== Part 2 ==============\n')
 
-        print '---------------- Testing doWaterfall() function (output metrics part) ----------------\n'
+        print('---------------- Testing doWaterfall() function (output metrics part) ----------------\n')
 
         # output each tranche's IRR, DIRR, AL, and rating
         for lvl, IRR, DIRR, AL, rating in zip(structured_securities.subordination_levels, IRR_list, DIRR_list, AL_list,
                                               rating_list):
-            print 'subordination level {lvl}: IRR = {IRR:.6f}, DIRR = {DIRR:.6f}, AL = {AL}; letter rating: {rating}'.\
-                format(lvl=lvl, IRR=IRR, DIRR=DIRR, AL=AL, rating=rating)
+            print(f'subordination level {lvl}: IRR = {IRR:.6f}, DIRR = {DIRR:.6f}, AL = {AL}; letter rating: {rating}')
 
-        print '\n=============== Part 3 ==============\n'
+        print('\n=============== Part 3 ==============\n')
 
-        print '---------------- Testing simulateWaterfall() function ----------------\n'
+        print('---------------- Testing simulateWaterfall() function ----------------\n')
 
         # Note: Commented out code below, if ran, takes a very long time!! Expect a few days. This global function is
         # used to aid the runMonte() global function below.
@@ -144,10 +143,9 @@ def main():
         #
         #     # output each tranche's average DIRR and WAL
         #     for lvl, avgDIRR, WAL in zip(structured_securities.subordination_levels, avgDIRR_list, WAL_list):
-        #         print 'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, WAL = {WAL:.6f}'.\
-        #             format(lvl=lvl, avgDIRR=avgDIRR, WAL=WAL)
+        #         print(f'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, WAL = {WAL:.6f}')
 
-        print '\n---------------- Testing runMonte() function ----------------\n'
+        print('\n---------------- Testing runMonte() function ----------------\n')
 
         # Note: Commented out code below, if ran, takes a very long time!! Expect a little more than a week (the version
         # below, which uses multiprocessing, took about 10 hours so this would take about 20 times more--200 hours or
@@ -171,10 +169,10 @@ def main():
         # # output each tranche's implied average DIRR, WAL, and tranche rate
         # for lvl, avgDIRR, rating, WAL, y in zip(structured_securities.subordination_levels, avg_DIRR_list, rating_list,
         #                                         WAL_list, yield_list):
-        #     print 'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, rating = {rating}, WAL = {WAL:.6f}, ' \
-        #           'rate = {rate:.6f}'.format(lvl=lvl, avgDIRR=avgDIRR, rating=rating, WAL=WAL, rate=y)
+        #     print(f'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, rating = {rating}, WAL = {WAL:.6f}, ' \
+        #           f'rate = {y:.6f}')
 
-        print '\n---------------- Testing runMonte(), now with multiprocessing ----------------\n'
+        print('\n---------------- Testing runMonte(), now with multiprocessing ----------------\n')
 
         # call runMonte_multiprocessing() to find the implied tranche rates and thus the implied average DIRR, WAL, and
         # yield (tranche rate) via multiprocessing
@@ -195,8 +193,8 @@ def main():
         # output each tranche's implied average DIRR, WAL, and tranche rate
         for lvl, avgDIRR, rating, WAL, y in zip(structured_securities.subordination_levels, avg_DIRR_list, rating_list,
                                                 WAL_list, yield_list):
-            print 'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, rating = {rating}, WAL = {WAL:.6f}, ' \
-                  'rate = {rate:.6f}'.format(lvl=lvl, avgDIRR=avgDIRR, rating=rating, WAL=WAL, rate=y)
+            print(f'subordination level {lvl}: average DIRR = {avgDIRR:.6f}, rating = {rating}, WAL = {WAL:.6f}, ' \
+                  f'rate = {y:.6f}')
 
 if __name__=='__main__':
     main()
