@@ -5,3 +5,6 @@ This program takes a csv file of thousands of fixed rate loans. It then uses the
 In summary, this program does the following:
 1) Price an asset-backed security, with potential loan defaults, determine risk metrics (IRR, DIRR, letter rating, and WAL), and output the cash flows that occurred each period for both the loan pool and the tranches.
 2) Determine the fair tranche rates.
+
+UPDATES
+6/7/2020: migrated everything from Python 2 to Python 3
