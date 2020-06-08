@@ -97,14 +97,13 @@ def doWaterfall(loan_pool, structured_securities, consideringDefaults=True, writ
     # check if inputs are valid
     # loan_pool is not of type LoanPool
     if not isinstance(loan_pool, LoanPool):
-        logging.error('The inputted loan_pool is of type {type}, which is not a LoanPool object. A LoanPool object '
-                      'should be inputted instead.'.format(type=type(loan_pool)))
+        logging.error(f'The inputted loan_pool is of type {type(loan_pool)}, which is not a LoanPool object. A LoanPool'
+                      ' object should be inputted instead.')
         raise TypeError('loan_pool is not a LoanPool object, but it should be.')
     # structured_securities is not of type StructuredSecurities
     elif not (isinstance(structured_securities, StructuredSecurities)):
-        logging.error('The inputted structured_securities is of type {type}, which is not a StructuredSecurities '
-                      'object. A StructuredSecurities object should be inputted instead.'.
-                      format(type=type(structured_securities)))
+        logging.error(f'The inputted structured_securities is of type {type(structured_securities)}, which is not a '
+                      'StructuredSecurities object. A StructuredSecurities object should be inputted instead.')
         raise TypeError('structured_securities is not a StructuredSecurities object, but it should be.')
     # write_to_file is not bool
     elif not isinstance(write_to_file, bool):
@@ -129,14 +128,14 @@ def doWaterfall(loan_pool, structured_securities, consideringDefaults=True, writ
         if write_to_file:
             # open assets.csv file to write to
             f_assets = open('assets.csv', 'w')
-            f_assets_headers = ['Period'] + ['{ID} Principal Due,{ID} Interest Due,{ID} Balance'.format(ID=ID)
+            f_assets_headers = ['Period'] + [f'{ID} Principal Due,{ID} Interest Due,{ID} Balance'
                                              for ID in sorted(loan_pool.loan_ids)]
             f_assets.write(','.join(f_assets_headers))
 
             # open liabilities.csv file to write to
             f_liabilities = open('liabilities.csv', 'w')
-            f_liabilities_headers = ['Period'] + ['{lvl} Interest Due,{lvl} Interest Paid,{lvl} Interest Shortfall,' \
-                                                  '{lvl} Principal Paid,{lvl} Balance'.format(lvl=level)
+            f_liabilities_headers = ['Period'] + [f'{level} Interest Due,{level} Interest Paid,{level} ' \
+                                                  f'Interest Shortfall,{level} Principal Paid,{level} Balance'
                                                   for level in sorted(structured_securities.subordination_levels)]
             f_liabilities.write(','.join(f_liabilities_headers) + ',Cash (Reserve)')
 
@@ -252,14 +251,13 @@ def simulateWaterfall(loan_pool, structured_securities, NSIM):
     # check if all inputs are valid
     # loan_pool is not of type LoanPool
     if not isinstance(loan_pool, LoanPool):
-        logging.error('The inputted loan_pool is of type {type}, which is not a LoanPool object. A LoanPool object '
-                      'should be inputted instead.'.format(type=type(loan_pool)))
+        logging.error(f'The inputted loan_pool is of type {type(loan_pool)}, which is not a LoanPool object. A LoanPool'
+                      ' object should be inputted instead.')
         raise TypeError('loan_pool is not of type LoanPool.')
     # structured_securities is not of type StructuredSecurities
     elif not isinstance(structured_securities, StructuredSecurities):
-        logging.error('The inputted structured_securities is of type {type}, which is not a StructuredSecurities '
-                      'object. A StructuredSecurities object should be inputted instead.'.
-                      format(type=type(structured_securities)))
+        logging.error(f'The inputted structured_securities is of type {type(structured_securities)}, which is not a '
+                      'StructuredSecurities object. A StructuredSecurities object should be inputted instead.')
         raise TypeError('structured_securities is not of type StructuredSecurities.')
     # NSIM is not a positive integer
     elif not (type(NSIM) is int and NSIM > 0):
@@ -270,7 +268,7 @@ def simulateWaterfall(loan_pool, structured_securities, NSIM):
         DIRR_list = []
         AL_list = []
         # run NSIM simulations
-        for _ in xrange(NSIM):
+        for _ in range(NSIM):
             # get DIRR and AL
             # Note: the last two arguments, consideringDefaults and write_to_file, are missing as we are assuming their
             # default values, namely, consideringDefaults=True and write_to_file=False
@@ -365,14 +363,13 @@ def runMonte(loan_pool, structured_securities, tolerance, NSIM):
     # check if all inputs are valid
     # loan_pool is not of type LoanPool
     if not isinstance(loan_pool, LoanPool):
-        logging.error('The inputted loan_pool is of type {type}, which is not a LoanPool object. A LoanPool object '
-                      'should be inputted instead.'.format(type=type(loan_pool)))
+        logging.error(f'The inputted loan_pool is of type {type(loan_pool)}, which is not a LoanPool object. A LoanPool'
+                      ' object should be inputted instead.')
         raise TypeError('loan_pool is not of type LoanPool.')
     # structured_securities is not of type StructuredSecurities
     elif not isinstance(structured_securities, StructuredSecurities):
-        logging.error('The inputted structured_securities is of type {type}, which is not a StructuredSecurities '
-                      'object. A StructuredSecurities object should be inputted instead.'.
-                      format(type=type(structured_securities)))
+        logging.error(f'The inputted structured_securities is of type {type(structured_securities)}, which is not a '
+                      'StructuredSecurities object. A StructuredSecurities object should be inputted instead.')
         raise TypeError('structured_securities is not of type StructuredSecurities.')
     # tolerance is not a positive float
     elif not (type(tolerance) is float and tolerance > 0):
@@ -459,14 +456,13 @@ def runMonte_multiprocessing(loan_pool, structured_securities, tolerance, NSIM, 
     # check if all inputs are valid
     # loan_pool is not of type LoanPool
     if not isinstance(loan_pool, LoanPool):
-        logging.error('The inputted loan_pool is of type {type}, which is not a LoanPool object. A LoanPool object '
-                      'should be inputted instead.'.format(type=type(loan_pool)))
+        logging.error(f'The inputted loan_pool is of type {type(loan_pool)}, which is not a LoanPool object. A LoanPool'
+                      ' object should be inputted instead.')
         raise TypeError('loan_pool is not of type LoanPool.')
     # structured_securities is not of type StructuredSecurities
     elif not isinstance(structured_securities, StructuredSecurities):
-        logging.error('The inputted structured_securities is of type {type}, which is not a StructuredSecurities '
-                      'object. A StructuredSecurities object should be inputted instead.'.
-                      format(type=type(structured_securities)))
+        logging.error(f'The inputted structured_securities is of type {type(structured_securities)}, which is not a '
+                      'StructuredSecurities object. A StructuredSecurities object should be inputted instead.')
         raise TypeError('structured_securities is not of type StructuredSecurities.')
     # tolerance is not a positive float
     elif not (type(tolerance) is float and tolerance > 0):
@@ -584,14 +580,13 @@ def runSimulationParallel(loan_pool, structured_securities, NSIM, numProcesses):
     # check if inputs are all valid
     # loan_pool is not of type LoanPool
     if not isinstance(loan_pool, LoanPool):
-        logging.error('The inputted loan_pool is of type {type}, which is not a LoanPool object. A LoanPool object '
-                      'should be inputted instead.'.format(type=type(loan_pool)))
+        logging.error(f'The inputted loan_pool is of type {type(loan_pool)}, which is not a LoanPool object. A LoanPool'
+                      ' object should be inputted instead.')
         raise TypeError('loan_pool is not of type LoanPool.')
     # structured_securities is not of type StructuredSecurities
     elif not isinstance(structured_securities, StructuredSecurities):
-        logging.error('The inputted structured_securities is of type {type}, which is not a StructuredSecurities '
-                      'object. A StructuredSecurities object should be inputted instead.'.
-                      format(type=type(structured_securities)))
+        logging.error(f'The inputted structured_securities is of type {type(structured_securities)}, which is not a '
+                      'StructuredSecurities object. A StructuredSecurities object should be inputted instead.')
         raise TypeError('structured_securities is not of type StructuredSecurities.')
     # NSIM is not a positive integer
     elif not (type(NSIM) is int and NSIM > 0):
@@ -607,7 +602,7 @@ def runSimulationParallel(loan_pool, structured_securities, NSIM, numProcesses):
 
         # give each process the same number of simulations
         for i in range(numProcesses):
-            input_queue.put((simulateWaterfall, (loan_pool, structured_securities, NSIM / numProcesses,)))
+            input_queue.put((simulateWaterfall, (loan_pool, structured_securities, NSIM // numProcesses,)))
 
         # create and initialize numProcesses processes
         procs = []
