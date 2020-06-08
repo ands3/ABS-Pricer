@@ -4,7 +4,7 @@ Andy Zhang
 Exercise 2.2.7: Script for fixed AutoLoan class, a derived FixedRateLoan class.
 '''
 
-from loans import FixedRateLoan  # using a derived class of Loan class
+from level5_5_2_2_to_5_2_3.loans import FixedRateLoan  # using a derived class of Loan class
 
 '''=================================================
 AutoLoan class:

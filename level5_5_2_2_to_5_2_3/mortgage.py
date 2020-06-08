@@ -4,7 +4,8 @@ Andy Zhang
 Exercises 4.2.3 - 4.2.4: Script for classes related to Mortgages.
 '''
 
-from loans import VariableRateLoan, FixedRateLoan  # using derived classes of Loan class
+from level5_5_2_2_to_5_2_3.loans import VariableRateLoan, FixedRateLoan  # using derived classes of Loan class
+import logging  # using logging module
 
 '''=================================================
 MortgageMixin, VariableMortgage, and FixedMortgage classes:
@@ -48,7 +49,7 @@ class MortgageMixin(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # loan-to-value (LTV) ratio
@@ -59,7 +60,7 @@ class MortgageMixin(object):
         # assuming loan face value equals home value
         logging.debug('PMI() function computes PMI as 0.0075% of the loan face value, which is assumed to be the '
                       'initial assets value, if LTV is at least 0.8. LTV is computed via the base class\'s class-level '
-                      'method calcMonthlyPmt(), which gives {LTV}.'.format(LTV=LTV))
+                      'method calcMonthlyPmt(), which gives {LTV}.')
         return .000075 * self._asset.asset if LTV >= .8 else 0.0
 
     def monthlyPayment(self, period):
@@ -92,8 +93,7 @@ class MortgageMixin(object):
         # Affected by PMI: reduced by PMI; clarified by Mark in email
         logging.debug('principalDue() function computes principal due as the difference between principal due and PMI. '
                       'Principal due is computed via the base class\'s principalDue() method, which gives '
-                      '{principal_due}, and PMI is computed via PMI() method, which gives {PMI}.'.
-                      format(principal_due=principal_due, PMI=pmi))
+                      '{principal_due}, and PMI is computed via PMI() method, which gives {pmi}.')
         return principal_due - self.PMI(period)
 
 # 2.2.3

@@ -5,7 +5,7 @@ Exercise 2.2.6 b: Script for derived Car class.
 '''
 
 # using Asset class
-from asset import Asset
+from level5_5_2_2_to_5_2_3.asset import Asset
 
 '''=================================================
 Car class:

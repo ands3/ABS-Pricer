@@ -51,10 +51,10 @@ class Asset(object):
         # check that inputs are valid
         # assets value is not a positive number
         if not (type(asset) is int and asset > 0 or type(asset) is float and asset > 0):
-            print 'Asset value should be a positive number.'
+            print('Asset value should be a positive number.')
         # annual depreciation rate is not a nonnegative number
         elif not (type(depr_rate) is float and depr_rate >= 0):
-            print 'Annual depreciation rate should be a nonnegative number.'
+            print('Annual depreciation rate should be a nonnegative number.')
         # all inputs are valid
         else:
             # 2.1.6 a
@@ -68,7 +68,7 @@ class Asset(object):
         '''
         Return the str value of the Asset object.
         '''
-        return 'Asset: assets={asset}, depr_rate={depr}'.format(asset=self._asset, depr=self._depr_rate)
+        return f'Asset: assets={self._asset}, depr_rate={self._depr_rate}'
 
     # getters/setters
 
@@ -87,7 +87,7 @@ class Asset(object):
         # iasset is not positive integer
         if not (type(iasset) is int and iasset > 0 or type(iasset) is float and iasset > 0):
             # error message
-            print 'Asset value must be a positive number.'
+            print('Asset value must be a positive number.')
         # iasset valid
         else:
             self._asset = iasset
@@ -114,7 +114,7 @@ class Asset(object):
         # ann_depr_rate is a nonnegative number
         if not (type(ann_depr_rate) is float and ann_depr_rate >= 0):
             # error message
-            print 'Yearly depreciation rate must be a nonnegative number.'
+            print('Yearly depreciation rate must be a nonnegative number.')
             return
         return ann_depr_rate / 12
 
@@ -126,7 +126,7 @@ class Asset(object):
         # period is not a nonnegative integer
         if not (type(t) is int and t >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # get monthly depreciation rate

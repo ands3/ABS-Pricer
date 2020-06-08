@@ -5,7 +5,7 @@ Exercise 2.2.1: Script for derived Loan classes.
 '''
 
 # using Loan class
-from loan_base import Loan
+from level5_5_2_2_to_5_2_3.loan_base import Loan
 
 '''=================================================
 FixedRateLoan and VariableRateLoan classes:
@@ -32,7 +32,7 @@ class FixedRateLoan(Loan):
         # check that rate input is valid
         # rate input is not a positive number
         if not (type(rate) is float and rate > 0):
-            print 'Annual interest rate should be a positive number.'
+            print('Annual interest rate should be a positive number.')
         # rate input is valid
         else:
             super(FixedRateLoan, self).__init__(asset, term, rate, face)
@@ -46,7 +46,7 @@ class FixedRateLoan(Loan):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # annualized interest rate
@@ -84,8 +84,8 @@ class VariableRateLoan(Loan):
         if type(rateDict) is not dict or all(type(k) is not int for k in rateDict.keys()) or \
                 all(type(v) is not float for v in rateDict.values()) or rateDict.keys() != sorted(rateDict.keys()) or \
                 min(rateDict.keys()) != 0 or min(rateDict.values()) <= 0:
-            print 'rateDict should be a dict of int:float, with starting key being 0, keys going from smallest to ' \
-                  'largest, and all values being positive.'
+            print('rateDict should be a dict of int:float, with starting key being 0, keys going from smallest to ' \
+                  'largest, and all values being positive.')
         # rateDict input is valid
         else:
             self._rateDict = rateDict
@@ -102,7 +102,7 @@ class VariableRateLoan(Loan):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # Getting the appropriate rate requires finding the last key for which period is greater than or equal to. This

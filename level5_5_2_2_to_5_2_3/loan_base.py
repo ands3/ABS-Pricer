@@ -4,7 +4,7 @@ Andy Zhang
 Case Study: Script for the Loan class
 '''
 
-from asset import Asset  # using Asset class
+from level5_5_2_2_to_5_2_3.asset import Asset  # using Asset class
 import logging  # using logging module
 
 '''=================================================
@@ -127,15 +127,14 @@ class Loan(object):
         # check that inputs are valid
         # assets is not of type Asset
         if not isinstance(asset, Asset):
-            logging.error('The assets input value given is {asset}. This is of type {type}, which is not valid in this '
-                          'case. The expected type for assets is type Asset'.
-                          format(asset=asset,  # in format, can use 'assets' since in the Asset class, __str__() method
-                                               # was recently added
-                                 type=type(asset)))
+            logging.error(f'The assets input value given is {asset}' # in format, can use 'assets' since in the Asset 
+                                                                     # class, __str__() method was recently added
+                          f'. This is of type {type(asset)}, which is not valid in this case. The expected type for '
+                          'assets is type Asset')
             raise TypeError('The assets should be of type Asset.')
         # term is not a positive int
         elif not (type(term) is int and term > 0):
-            print 'Term should be a positive integer.'
+            print('Term should be a positive integer.')
         # annual interest rate is not a nonnegative number
         ###############################################################################################################
         # Exercise 2.2.3 modification: For VariableMortgage, this would be None due to the design of the class, which #
@@ -143,13 +142,13 @@ class Loan(object):
         # noted.                                                                                                      #
         ###############################################################################################################
         elif not (type(rate) is float and rate > 0 or rate is None):
-            print 'Annual interest rate should be a positive number. Note: Allowing None for VariableMortgage class.'
+            print('Annual interest rate should be a positive number. Note: Allowing None for VariableMortgage class.')
         # principal is not a nonnegative number
         elif not (type(face) is int and face >= 0 or type(face) is float and face >= 0):
-            print 'Principal should be a nonnegative number.'
+            print('Principal should be a nonnegative number.')
         # recovery rate is not a nonnegative float
         elif not (type(recovery_rate) is float and recovery_rate >= 0):
-            print 'Recovery rate should be a nonnegative float.'
+            print('Recovery rate should be a nonnegative float.')
         # all inputs are valid
         else:
             self._asset = asset
@@ -166,9 +165,8 @@ class Loan(object):
         '''
         Return the str value of the Loan object.
         '''
-        return 'Loan: assets value={asset}, assets\'s annual depreciation rate={depr}, term={term}, rate={rate}, ' \
-               'face={face}'.format(asset=self._asset.asset, depr=self._asset.annualDeprRate(), term=self._term,
-                                    rate=self._rate, face=self._face)
+        return f'Loan: assets value={self._asset.asset}, assets\'s annual depreciation rate=' \
+               f'{self._asset.annualDeprRate()}, term={self._term}, rate={self._rate}, face={self._face}'
 
     # getters/setters
 
@@ -193,8 +191,8 @@ class Loan(object):
         # iasset is not an Asset type
         if not isinstance(iasset, Asset):
             # error message
-            logging.error('The iasset input value given is {asset}. This is of type {type}, which is not valid in this '
-                          'case. The expected type for iasset is type Asset'.format(asset=iasset, type=type(iasset)))
+            logging.error(f'The iasset input value given is {iasset}. This is of type {type(iasset)}, which is not '
+                          'valid in this case. The expected type for iasset is type Asset')
             raise TypeError('The assets should be of type Asset.')
         # iasset valid
         else:
@@ -215,7 +213,7 @@ class Loan(object):
         # iterm is not positive integer
         if not (type(iterm) is int and iterm > 0):
             # error message
-            print 'The term must be a positive integer.'
+            print('The term must be a positive integer.')
         # iterm valid
         else:
             self._term = iterm
@@ -235,7 +233,7 @@ class Loan(object):
         # irate is a nonnegative number
         if not (type(irate) is float and irate > 0):
             # error message
-            print 'The annual interest rate must be a positive (float) number.'
+            print('The annual interest rate must be a positive (float) number.')
         # irate valid
         else:
             self._rate = irate
@@ -255,7 +253,7 @@ class Loan(object):
         # iface is not nonnegative number
         if not (type(iface) is int and iface >= 0 or type(iface) is float and iface >= 0):
             # error message
-            print 'The principal must be a nonnegative number.'
+            print('The principal must be a nonnegative number.')
         # iterm valid
         else:
             self._face = iface
@@ -299,7 +297,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         return self.calcMonthlyPmt(self._face, self.getRate(period), self._term)
@@ -314,7 +312,7 @@ class Loan(object):
         # period is not a positive integer
         if not (type(period) is int and period > 0):
             # error message
-            print 'The period must be a positive integer.'
+            print('The period must be a positive integer.')
             return
 
         # monthly payment
@@ -322,8 +320,7 @@ class Loan(object):
 
         # total payment
         logging.debug('totalPayments() function calls the monthlyPayment() method to get the monthly payment of '
-                      '{monthlyPmt}, and multiplies this by the term of the loan to get the total payments.'.
-                      format(monthlyPmt=monthlyPmt))
+                      f'{monthlyPmt}, and multiplies this by the term of the loan to get the total payments.')
         return monthlyPmt * (self._defaultPeriod - 1)
 
     def totalInterest(self, period):
@@ -333,7 +330,7 @@ class Loan(object):
         # period is not a positive integer
         if not (type(period) is int and period > 0):
             # error message
-            print 'The period must be a positive integer.'
+            print('The period must be a positive integer.')
             return
 
         # total payments
@@ -341,8 +338,7 @@ class Loan(object):
 
         # total interest
         logging.debug('totalInterest() function calls the totalPayments() method to get the total payments of '
-                      '{totalPmt}, and subtracts the face value of the loan to get the total interest.'.
-                      format(totalPmt=totalPmt))
+                      f'{totalPmt}, and subtracts the face value of the loan to get the total interest.')
         return totalPmt - self._face
 
     # Case Study (previously 4.2.3 b, c and e)
@@ -355,7 +351,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is 0 or period is greater than or equal to defaultPeriod
@@ -363,13 +359,13 @@ class Loan(object):
             return 0
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since interest should be all paid off by the end of the term of the loan. '
-                         'Period should be at most the term of the loan.'.format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since interest should be all paid off by the end of the term'
+                         ' of the loan. Period should be at most the term of the loan.')
             return self.interestDue_recursive(period)
         # period is greater than 0 but less than or equal to the term
         else:
-            logging.warn('For even moderate periods, interestDue_recursive() function will be expected to take a long '
+            logging.warning('For even moderate periods, interestDue_recursive() function will be expected to take a long '
                          'time. It is strongly recommended to use interestDue_formula() function, which will be '
                          'significantly faster.')
             logging.debug('interestDue_recursive() function first calls the static-level method monthlyRate() to get '
@@ -403,7 +399,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is 0 or period is greater than or equal to defaultPeriod
@@ -411,16 +407,16 @@ class Loan(object):
             return 0
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since interest should be all paid off by the end of the term of the loan. '
-                         'Period should be at most the term of the loan.'.format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since interest should be all paid off by the end of the term'
+                         ' of the loan. Period should be at most the term of the loan.')
             return 0.
         # period is greater than 0 but less than or equal to the term
         else:
             # get monthly interest rate
             m_rate = Loan.monthlyRate(self.getRate(period))
             logging.debug('interestDue_formula() function first calls the static-level method monthlyRate() to get '
-                          'the monthly interest rate of {rate}.'.format(rate=m_rate))
+                          f'the monthly interest rate of {m_rate}.')
 
             # previous monthly payment
             monthlyPmt = self.monthlyPayment(period - 1)
@@ -428,7 +424,7 @@ class Loan(object):
             # interest due
             logging.debug('interestDue_formula() function finally uses the formula for interest due to calculate '
                           'interest due. The formula relies on monthlyPayment() method, which gives a monthly payment '
-                          'of {monthlyPmt}.'.format(monthlyPmt=monthlyPmt))
+                          f'of {monthlyPmt}.')
             return m_rate * (self._face * (1 + m_rate)**(period - 1) - monthlyPmt *
                              ((1 + m_rate)**(period - 1) - 1) / m_rate)
 
@@ -442,7 +438,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is 0 or period is greater than or equal to defaultPeriod
@@ -450,10 +446,10 @@ class Loan(object):
             return 0
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan will be fully paid off and '
-                         'so there won\'t be any principal left to pay. Period should be at most the term of the loan.'.
-                         format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan will be '
+                         'fully paid off and so there won\'t be any principal left to pay. Period should be at most the'
+                         ' term of the loan.')
             return self.principalDue_recursive(period)
         # period is greater than 0 but less than or equal to the term
         else:
@@ -491,7 +487,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is 0 or period is greater than or equal to defaultPeriod
@@ -499,17 +495,17 @@ class Loan(object):
             return 0
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan will be fully paid off and '
-                         'so there won\'t be any principal left to pay. Period should be at most the term of the loan.'.
-                         format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan will be '
+                         'fully paid off and so there won\'t be any principal left to pay. Period should be at most the'
+                         ' term of the loan.')
             return 0.
         # period is greater than 0 but less than or equal to the term
         else:
             # get monthly interest rate
             m_rate = Loan.monthlyRate(self.getRate(period))
             logging.debug('principalDue() function first calls the static-level method monthlyRate() to get '
-                          'the monthly interest rate of {rate}.'.format(rate=m_rate))
+                          f'the monthly interest rate of {m_rate}.')
 
             # monthly payment
             monthlyPmtCurrent = self.monthlyPayment(period)
@@ -518,8 +514,7 @@ class Loan(object):
             # principal due
             logging.debug('principalDue() function finally uses the formula for principal due to calculate principal '
                           'due. The formula relies on monthlyPayment() method, which gives a current monthly payment of'
-                          ' {currentMonthlyPmt} and a previous monthly payment of {previousMonthlyPmt}'.
-                          format(currentMonthlyPmt=monthlyPmtCurrent, previousMonthlyPmt=monthlyPmtPrevious))
+                          f' {monthlyPmtCurrent} and a previous monthly payment of {monthlyPmtPrevious}')
             return monthlyPmtCurrent - m_rate * (self._face * (1 + m_rate)**(period - 1) -
                                                  monthlyPmtPrevious * ((1 + m_rate)**(period - 1) - 1) / m_rate)
 
@@ -533,7 +528,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is greater than or equal to defaultPeriod
@@ -541,10 +536,10 @@ class Loan(object):
             return 0
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {0}. This is greater than the term of the loan, which is {1}, but should '
-                         'not be since by the end of the term of the loan, the loan will be fully paid off and so there'
-                         ' won\'t be any balance left. Period should be at most the term of the loan.'.
-                         format(period, self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan will be '
+                         'fully paid off and so there won\'t be any balance left. Period should be at most the term of '
+                         'the loan.')
             return self.balance_recursive(period)
         # period is 0, or is greater than 0 but less than or equal to the term
         else:
@@ -584,7 +579,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is greater than or equal to defaultPeriod
@@ -596,25 +591,24 @@ class Loan(object):
             return self._face
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan will be fully paid off and '
-                         'so there won\'t be any balance left. Period should be at most the term of the loan.'.
-                         format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan will be '
+                         'fully paid off and so there won\'t be any balance left. Period should be at most the term of '
+                         'the loan.')
             return 0
         # period is greater than 0 but less than or equal to the term
         else:
             # get monthly interest rate
             m_rate = Loan.monthlyRate(self.getRate(period))
             logging.debug('balance_formula() function first calls the static-level method monthlyRate() to get '
-                          'the monthly interest rate of {rate}.'.format(rate=m_rate))
+                          f'the monthly interest rate of {m_rate}.')
 
             # monthly payment
             monthlyPmt = self.monthlyPayment(period)
 
             # balance
             logging.debug('balance_formula() function finally uses the formula for balance to calculate balance. The '
-                          'formula relies on monthlyPayment() method, which gives a monthly payment of {monthlyPmt}.'.
-                          format(monthlyPmt=monthlyPmt))
+                          f'formula relies on monthlyPayment() method, which gives a monthly payment of {monthlyPmt}.')
             return self._face * (1 + m_rate)**period - monthlyPmt * ((1 + m_rate)**period - 1) / m_rate
 
     # 4.2.3 b
@@ -628,15 +622,15 @@ class Loan(object):
         # check that inputs are valid
         # principal is not a nonnegative number
         if not (type(face) is int and face >= 0 or type(face) is float and face >= 0):
-            print 'Principal should be a nonnegative number.'
+            print('Principal should be a nonnegative number.')
             return
         # annual interest rate is not a positive number
         elif not (type(rate) is float and rate > 0):
-            print 'Annual interest rate should be a positive number.'
+            print('Annual interest rate should be a positive number.')
             return
         # term is not a positive int
         elif not (type(term) is int and term > 0):
-            print 'Term should be a positive integer.'
+            print('Term should be a positive integer.')
             return
 
         # get monthly interest rate
@@ -655,20 +649,20 @@ class Loan(object):
         # check that inputs are valid
         # principal is not a nonnegative number
         if not (type(face) is int and face >= 0 or type(face) is float and face >= 0):
-            print 'Principal should be a nonnegative number.'
+            print('Principal should be a nonnegative number.')
             return
         # annual interest rate is not a positive number
         elif not (type(rate) is float and rate > 0):
-            print 'Annual interest rate should be a positive number.'
+            print('Annual interest rate should be a positive number.')
             return
         # term is not a positive int
         elif not (type(term) is int and term > 0):
-            print 'Term should be a positive integer.'
+            print('Term should be a positive integer.')
             return
         # period is not a nonnegative integer
         elif not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is greater than or equal to defaultPeriod
@@ -680,17 +674,16 @@ class Loan(object):
             return face
         # period is greater than the term
         elif period > term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is {term}, but'
                          ' should not be since by the end of the term of the loan, the loan will be paid off and so '
-                         'there won\'t be any balance left. Period should be at most the term of the loan.'.
-                         format(period=period, term=term))
+                         'there won\'t be any balance left. Period should be at most the term of the loan.')
             return 0
         # period is greater than 0 but less than or equal to the term
         else:
             # get monthly interest rate
             m_rate = Loan.monthlyRate(rate)
             logging.debug('calcBalance() function first calls the static-level method monthlyRate() to get the monthly'
-                          ' interest rate of {rate}.'.format(rate=m_rate))
+                          f' interest rate of {m_rate}.')
 
             # monthly payment
             monthlyPmt = cls.calcMonthlyPmt(face, rate, term)
@@ -698,7 +691,7 @@ class Loan(object):
             # balance
             logging.debug('calcBalance() function finally uses the formula for balance to calculate balance. The '
                           'formula relies on class-level method calcmonthlyPmt(), which gives a monthly payment of '
-                          '{monthlyPmt}.'.format(monthlyPmt=monthlyPmt))
+                          f'{monthlyPmt}.')
             return face * (1 + m_rate) ** period - monthlyPmt * ((1 + m_rate) ** period - 1) / m_rate
 
     # 4.2.3 b and c (previously 2.2.1)
@@ -709,7 +702,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # period is greater than or equal to defaultPeriod
@@ -721,10 +714,10 @@ class Loan(object):
             return self._face
         # period is greater than the term
         elif period > self._term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan will be paid off and so '
-                         'there won\'t be any balance left. Period should be at most the term of the loan.'.
-                         format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan will be '
+                         'paid off and so there won\'t be any balance left. Period should be at most the term of the '
+                         'loan.')
             return 0
         # period is greater than 0 but less than or equal to the term
         else:
@@ -741,7 +734,7 @@ class Loan(object):
         # annual_rate is not a positive number
         if not (type(annual_rate) is float and annual_rate > 0):
             # error message
-            print 'The annual interest rate must be a positive number.'
+            print('The annual interest rate must be a positive number.')
             return
         return annual_rate / 12
 
@@ -753,7 +746,7 @@ class Loan(object):
         # monthly_rate is not a positive number
         if not (type(monthly_rate) is float and monthly_rate > 0):
             # error message
-            print 'The annual interest rate must be a positive number.'
+            print('The annual interest rate must be a positive number.')
             return
         return monthly_rate * 12
 
@@ -768,17 +761,17 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # If period is greater than the term of the loan, then there is nothing for the lender to recover as the loan
         # has been completely paid off
         # period greater than loan's term
         if period > self.term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan is completely paid off and '
-                         'so there will be nothing to recover. Period should be at most the term of the loan.'.
-                         format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan is '
+                         'completely paid off and so there will be nothing to recover. Period should be at most the '
+                         'term of the loan.')
             return 0.0
         # period is less than or equal to loan's term
         else:
@@ -791,8 +784,8 @@ class Loan(object):
             # recovery value
             logging.debug('recoveryValue() function computes the recovery value as the product of current assets value '
                           'and recovery multiplier. Current assets value is computed via the Asset class\'s '
-                          'currentAssetVal() method, which gives {currentAssetVal}, and recovery multiplier is '
-                          '{rec_mult}.'.format(currentAssetVal=currAssetValue, rec_mult=recovery_multiplier))
+                          f'currentAssetVal() method, which gives {currAssetValue}, and recovery multiplier is '
+                          '{recovery_multiplier}.')
             return currAssetValue * recovery_multiplier
 
     # 4.2.3 b and c (previously 2.2.7 e)
@@ -805,7 +798,7 @@ class Loan(object):
         # period is not a nonnegative integer
         if not (type(period) is int and period >= 0):
             # error message
-            print 'The period must be a nonnegative integer.'
+            print('The period must be a nonnegative integer.')
             return
 
         # loan balance
@@ -813,9 +806,9 @@ class Loan(object):
         # If period is greater than the term of the loan, then the loan balance has been paid in full and so available
         # equity will simply be the current assets value.
         if period > self.term:
-            logging.info('The period input is {period}. This is greater than the term of the loan, which is {term}, but'
-                         ' should not be since by the end of the term of the loan, the loan balance will be 0. Period '
-                         'should be at most the term of the loan.'.format(period=period, term=self._term))
+            logging.info(f'The period input is {period}. This is greater than the term of the loan, which is '
+                         f'{self._term}, but should not be since by the end of the term of the loan, the loan balance '
+                         'will be 0. Period should be at most the term of the loan.')
             loan_balance = 0.0
 
         # current assets value
@@ -824,8 +817,8 @@ class Loan(object):
         # available equity
         logging.debug('equity() function computes equity as the difference between current assets value and current loan'
                       ' balance. Current assets value is computed via the Asset class\'s currentAssetVal() method, which'
-                      ' gives {currentAssetVal}, and current loan balance is computed via balance() method, which gives'
-                      ' {balance}.'.format(currentAssetVal=currAssetValue, balance=loan_balance))
+                      f' gives {currAssetValue}, and current loan balance is computed via balance() method, which gives'
+                      f' {loan_balance}.')
         return currAssetValue - loan_balance
 
     # Case Study

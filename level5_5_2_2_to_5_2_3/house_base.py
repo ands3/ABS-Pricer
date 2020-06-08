@@ -5,7 +5,7 @@ Exercise 2.2.6 c: Script for derived HouseBase class.
 '''
 
 # using Asset class
-from asset import Asset
+from level5_5_2_2_to_5_2_3.asset import Asset
 
 '''=================================================
 HouseBase class:

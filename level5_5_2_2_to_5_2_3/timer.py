@@ -95,15 +95,11 @@ class Timer(object):
         # threshold exceeded
         if time_taken > Timer.warnThreshold:
             # warn-level log when warnThreshold exceeded
-            logging.warn('{name}: {time_taken} {unit}'.
-                         format(name=self._name, time_taken=(time() - self._start_time) * self._conv_factor,
-                                unit=self._units))
+            logging.warning(f'{self._name}: {(time() - self._start_time) * self._conv_factor} {self._units}')
         # threshold not exceeded
         else:
             # info-level log when warnThreshold not exceeded
-            logging.info('{name}: {time_taken} {unit}'.
-                         format(name=self._name, time_taken=(time() - self._start_time) * self._conv_factor,
-                                unit=self._units))
+            logging.info(f'{self._name}: {(time() - self._start_time) * self._conv_factor} {self._units}')
 
     # 5.2.1
     #############
@@ -121,7 +117,7 @@ class Timer(object):
             s = self.__enter__()
             res = f(*args, **kwargs)
             e = time()
-            print '{fun}: {time_taken} seconds'.format(fun=f, time_taken=e-s._start_time)
+            print(f'{f}: {e-s._start_time} seconds')
             return res
         return wrapped
 
@@ -132,9 +128,9 @@ class Timer(object):
         # check if new timer units is a valid one
         # if not valid, print error message
         if new_units not in ['secs', 'mins', 'hrs']:
-            logging.info('The input value is \'{new_unit}\'. It\'s not one of the three possible options. Valid inputs'
+            logging.info(f'The input value is \'{new_units}\'. It\'s not one of the three possible options. Valid inputs'
                          ' are: \'secs\' (seconds), \'mins\' (minutes), or \'hrs\' (hours). The current units of '
-                         '{current_unit} will be used.'.format(new_unit=new_units, current_unit=self._units))
+                         f'{self._units} will be used.')
         # valid, so change timer units to new units
         else:
             # change units
