@@ -4,7 +4,7 @@ Andy Zhang
 Case Study: Script for the Tranche class
 '''
 
-import numpy  # using numpy module
+import numpy_financial as npf  # using numpy-financial module
 import operator  # using operator module
 import logging  # using logging module
 from functools import reduce  # using selective importing
@@ -156,9 +156,9 @@ class Tranche(object):
         '''
         logging.debug(f'IRR() class method takes the tranche notional of {notional} and all periodic payments, both '
                       f'interest and principal, made to the tranche of {totalPmts} and uses those to compute IRR via '
-                      'numpy.irr(). The resulting number is then annualized to get the annualized Internal Rate of '
+                      'npf.irr(). The resulting number is then annualized to get the annualized Internal Rate of '
                       'Return.')
-        return numpy.irr([-notional] + totalPmts) * 12
+        return npf.irr([-notional] + totalPmts) * 12
 
     # Part 2.5
     #############
@@ -171,7 +171,7 @@ class Tranche(object):
         IRR = cls.IRR(notional, totalPmts)
         logging.debug(f'DIRR() class method takes the IRR computed via the class method IRR() of {IRR} and subtracts '
                       f'that from the tranche rate of {rate} to get the Reduction in Yield.')
-        # Note: Since numpy.irr() is a numerical technique, sometimes it returns an IRR that is higher than rate. This
+        # Note: Since npf.irr() is a numerical technique, sometimes it returns an IRR that is higher than rate. This
         # results in a negative DIRR. When calculating yield, this poses some problems as WAL is positive and so
         # applying sqrt() results in complex numbers. To remedy this issue, max() is applied.
         return max(rate - IRR, 0.0)
