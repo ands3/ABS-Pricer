@@ -10,4 +10,5 @@ UPDATES
 =======
 
 6/7/2020: migrated everything from Python 2 to Python 3
+
 1/9/2021: replaced numpy with numpy_financial
