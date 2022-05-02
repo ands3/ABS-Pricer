@@ -64,8 +64,8 @@ then outputs the periodic results for the LoanPool object into assets.csv and th
 StructuredSecurities object into liabilities.csv. Finally, it computes and returns for each tranche, the waterfall 
 metrics: Internal Rate of Return (IRR), Reduction in Yield (DIRR), Average Life (AL) and letter rating and outputs them.
 ================================================='''
-def doWaterfall(loan_pool: LoanPool, structured_securities: StructuredSecurities, consideringDefaults: bool =True,
-                write_to_file: bool =False) -> tuple:
+def doWaterfall(loan_pool: LoanPool, structured_securities: StructuredSecurities, consideringDefaults: bool = True,
+                write_to_file: bool = False) -> tuple:
     '''
     Keep getting periodic payments from the LoanPool object to pay the StructuredSecurities object until there are no
     more active loans in the LoanPool object, and then output the periodic results for the LoanPool object into
@@ -227,7 +227,7 @@ run and calls doWaterfall() function NSIM times, each time recording each tranch
 as an entry within the lists of DIRR and AL. It then averages the DIRR and AL values of each tranche and returns these 
 values as lists, where each entry in the DIRR and AL lists pertains to a tranche.
 ================================================='''
-def simulateWaterfall(loan_pool, structured_securities, NSIM):
+def simulateWaterfall(loan_pool: LoanPool, structured_securities: StructuredSecurities, NSIM: int) -> tuple:
     '''
     Take as inputs a LoanPool object, a StructuredSecurities object, and the number of simulations (NSIM) to run, call
     doWaterfall() function NSIM times, averages the DIRR and AL values obtained for each tranche, and return these
@@ -290,7 +290,7 @@ def simulateWaterfall(loan_pool, structured_securities, NSIM):
 calculateYield function:
 We write a function that takes the WAL and average DIRR as inputs and computes and returns the corresponding yield.
 ================================================='''
-def calculateYield(WAL, DIRR):
+def calculateYield(WAL: float, DIRR: float) -> float:
     '''
     Return the yield associated with a given WAL and average DIRR.
 
@@ -333,7 +333,7 @@ the tolerance level to determine if there is convergence. Upon convergence, list
 and yield are returned.
 ================================================='''
 @Timer('time taken: ')
-def runMonte(loan_pool, structured_securities, tolerance, NSIM):
+def runMonte(loan_pool: LoanPool, structured_securities: StructuredSecurities, tolerance: float, NSIM: int) -> tuple:
     '''
     Take a LoanPool object, a StructuredSecurities object, tolerance, and the number of simulations (NSIM) as inputs and
     then enter an infinite loop where simulateWaterfall() function is called to get each tranche's WAL and average DIRR,
@@ -423,7 +423,8 @@ tranche's old and new rates are computed and compared against the tolerance leve
 Upon convergence, lists of each tranche's average DIRR, WAL, and yield are returned.
 ================================================='''
 @Timer('total runtime: ')
-def runMonte_multiprocessing(loan_pool, structured_securities, tolerance, NSIM, numProcesses):
+def runMonte_multiprocessing(loan_pool: LoanPool, structured_securities: StructuredSecurities, tolerance: float,
+                             NSIM: int, numProcesses: int) -> tuple:
     '''
     Take a LoanPool object, a StructuredSecurities object, tolerance, the number of simulations (NSIM), and the number
     of processes (numProcesses) as inputs and then enter an infinite loop where simulateWaterfall() function is called
@@ -527,7 +528,7 @@ getTrancheMetrics function:
 We create a function that gets the results of the processes used and then averages them to get each tranche's average
 DIRR and WAL.
 ================================================='''
-def getTrancheMetrics(input_queue, output_queue):
+def getTrancheMetrics(input_queue, output_queue) -> tuple:
     '''
     Keep getting results from the output queue until the number of results matches the length of the input queue and
     then average the results to get each tranche's average DIRR and WAL.
@@ -554,7 +555,8 @@ We create a function that takes a LoanPool object, a StructuredSecurities object
 the number of processes (numProcesses), utilizes numProcesses processes to each compute the tranche metrics and averages
 these results, and then returns each tranche's metrics.
 ================================================='''
-def runSimulationParallel(loan_pool, structured_securities, NSIM, numProcesses):
+def runSimulationParallel(loan_pool: LoanPool, structured_securities: StructuredSecurities, NSIM: int,
+                          numProcesses: int) -> tuple:
     '''
     Take a LoanPool object, a StructuredSecurities object, the number of simulations (NSIM) and the number of processes
     (numProcesses), utilize numProcesses processes to each compute the tranche metrics, average these results, and then
