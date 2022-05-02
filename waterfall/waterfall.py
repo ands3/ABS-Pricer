@@ -20,7 +20,7 @@ import logging  # using logging module
 letterRating function:
 We write a function that takes Reduction in Yield (DIRR) as input and returns the corresponding letter rating.
 ================================================='''
-def letterRating(DIRR):
+def letterRating(DIRR: float) -> str:
     '''
     Take Reduction in Yield (DIRR) and output the corresponding letter rating.
 
@@ -64,7 +64,8 @@ then outputs the periodic results for the LoanPool object into assets.csv and th
 StructuredSecurities object into liabilities.csv. Finally, it computes and returns for each tranche, the waterfall 
 metrics: Internal Rate of Return (IRR), Reduction in Yield (DIRR), Average Life (AL) and letter rating and outputs them.
 ================================================='''
-def doWaterfall(loan_pool, structured_securities, consideringDefaults=True, write_to_file=False):
+def doWaterfall(loan_pool: LoanPool, structured_securities: StructuredSecurities, consideringDefaults: bool =True,
+                write_to_file: bool =False) -> tuple:
     '''
     Keep getting periodic payments from the LoanPool object to pay the StructuredSecurities object until there are no
     more active loans in the LoanPool object, and then output the periodic results for the LoanPool object into

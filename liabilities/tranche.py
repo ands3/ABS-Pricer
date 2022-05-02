@@ -52,7 +52,7 @@ class Tranche(object):
         return the average life (AL)
     '''
 
-    def __init__(self, notional, rate, subordination):
+    def __init__(self, notional: float or int, rate: float, subordination: str):
         '''
         Initialize variables.
         '''
@@ -80,14 +80,14 @@ class Tranche(object):
     # getters/setters
 
     @property
-    def notional(self):
+    def notional(self) -> float or int:
         '''
         Return the notional of tranche.
         '''
         return self._notional
 
     @notional.setter
-    def notional(self, inotional):
+    def notional(self, inotional: float):
         '''
         Set the notional of tranche.
         '''
@@ -100,14 +100,14 @@ class Tranche(object):
             self._notional = inotional
 
     @property
-    def rate(self):
+    def rate(self) -> float:
         '''
         Return annual interest rate.
         '''
         return self._rate
 
     @rate.setter
-    def rate(self, irate):
+    def rate(self, irate: float):
         '''
         Set annual interest rate.
         '''
@@ -120,14 +120,14 @@ class Tranche(object):
             self._rate = irate
 
     @property
-    def subordination(self):
+    def subordination(self) -> str:
         '''
         Return the subordination level of tranche.
         '''
         return self._subordination
 
     @subordination.setter
-    def subordination(self, isubordination):
+    def subordination(self, isubordination: str):
         '''
         Set the subordination level of tranche.
         '''
@@ -150,7 +150,7 @@ class Tranche(object):
     #############
 
     @classmethod
-    def IRR(cls, notional, totalPmts):
+    def IRR(cls, notional: float or int, totalPmts: float) -> float:
         '''
         Return the annualized internal rate of return (IRR).
         '''
@@ -164,7 +164,7 @@ class Tranche(object):
     #############
 
     @classmethod
-    def DIRR(cls, rate, notional, totalPmts):
+    def DIRR(cls, rate: float, notional: float or int, totalPmts: float) -> float:
         '''
         Return the reduction in yield (DIRR).
         '''
@@ -180,7 +180,7 @@ class Tranche(object):
     #############
 
     @classmethod
-    def AL(cls, prinPmts, notional, balance):
+    def AL(cls, prinPmts: float, notional: float or int, balance: float or int) -> None or float:
         '''
         Return the average life (AL).
         '''

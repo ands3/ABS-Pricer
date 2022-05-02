@@ -52,7 +52,7 @@ class Timer(object):
     # units in seconds
     warnThreshold = 60.
 
-    def __init__(self, name):
+    def __init__(self, name: str):
         '''
         Initialize variables.
         '''
@@ -121,7 +121,7 @@ class Timer(object):
             return res
         return wrapped
 
-    def configureTimerDisplay(self, new_units):
+    def configureTimerDisplay(self, new_units: str):
         '''
         Set the unit of measurement for the timer. Default is seconds. Can set to minutes or hours.
         '''

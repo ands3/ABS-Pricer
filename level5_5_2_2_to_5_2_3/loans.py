@@ -25,7 +25,7 @@ class FixedRateLoan(Loan):
     '''
 
     # 2.2.7
-    def __init__(self, asset, term, rate, face):
+    def __init__(self, asset, term: int, rate: float, face: float or int):
         '''
         Initialize variables.
         '''
@@ -37,7 +37,7 @@ class FixedRateLoan(Loan):
         else:
             super(FixedRateLoan, self).__init__(asset, term, rate, face)
 
-    def getRate(self, period):
+    def getRate(self, period: int) -> None or float:
         '''
         Return the annualized interest rate for the given period.
         '''
@@ -70,7 +70,7 @@ class VariableRateLoan(Loan):
         return annual interest rate of loan given period
     '''
 
-    def __init__(self, term, rateDict, face):
+    def __init__(self, term: int, rateDict: dict, face: float or int):
         '''
         Initialize variables.
         '''
@@ -93,7 +93,7 @@ class VariableRateLoan(Loan):
             # rate is set to None because we have a rateDict
             super(VariableRateLoan, self).__init__(term, None, face)
 
-    def getRate(self, period):
+    def getRate(self, period: int) -> None or float:
         '''
         Return the annualized interest rate for the given period.
         '''

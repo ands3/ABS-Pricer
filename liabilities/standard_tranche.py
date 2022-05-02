@@ -78,7 +78,7 @@ class StandardTranche(Tranche):
         reset tranche to its original state (time 0)
     '''
 
-    def __init__(self, notional, rate, subordinate, tranche_percent):
+    def __init__(self, notional: float or int, rate: float, subordinate: str, tranche_percent: float):
         '''
         Initialize variables.
         '''
@@ -103,14 +103,14 @@ class StandardTranche(Tranche):
     # getters/setters
 
     @property
-    def tranchePercent(self):
+    def tranchePercent(self) -> float:
         '''
         Return the tranche percent.
         '''
         return self._tranche_percent
 
     @tranchePercent.setter
-    def tranchePercent(self, itranche_percent):
+    def tranchePercent(self, itranche_percent: float):
         '''
         Set the tranche percent.
         '''
@@ -123,21 +123,21 @@ class StandardTranche(Tranche):
             self._tranche_percent = itranche_percent
 
     @property
-    def period(self):
+    def period(self) -> int:
         '''
         Return the current time period.
         '''
         return self._period
 
     @property
-    def prinDue(self):
+    def prinDue(self) -> dict:
         '''
         Return dict of each recorded period's principal due.
         '''
         return self._prinDue
 
     @prinDue.setter
-    def prinDue(self, principal_due, period):
+    def prinDue(self, principal_due: float, period: int):
         '''
         Set principal due for a given period.
         '''
@@ -153,14 +153,14 @@ class StandardTranche(Tranche):
             self._prinDue[period] = principal_due
 
     @property
-    def prinPmts(self):
+    def prinPmts(self) -> dict:
         '''
         Return dict of each recorded period's principal payment.
         '''
         return self._prinPmts
 
     @prinPmts.setter
-    def prinPmts(self, principal_pmt, period):
+    def prinPmts(self, principal_pmt: float, period: int):
         '''
         Set principal payment for a given period.
         '''
@@ -176,14 +176,14 @@ class StandardTranche(Tranche):
             self._prinPmts[period] = principal_pmt
 
     @property
-    def interestPmts(self):
+    def interestPmts(self) -> dict:
         '''
         Return dict of each recorded period's interest payment.
         '''
         return self._interestPmts
 
     @interestPmts.setter
-    def interestPmts(self, interest_pmt, period):
+    def interestPmts(self, interest_pmt: float, period: int):
         '''
         Set interest payment for a given period.
         '''
@@ -199,14 +199,14 @@ class StandardTranche(Tranche):
             self._interestPmts[period] = interest_pmt
 
     @property
-    def prinShortfalls(self):
+    def prinShortfalls(self) -> dict:
         '''
         Return dict of each recorded period's principal shortfall.
         '''
         return self._prinShortfalls
 
     @prinShortfalls.setter
-    def prinShortfalls(self, principal_shortfall, period):
+    def prinShortfalls(self, principal_shortfall: float, period: int):
         '''
         Set principal shortfall for a given period.
         '''
@@ -222,14 +222,14 @@ class StandardTranche(Tranche):
             self._prinShortfalls[period] = principal_shortfall
 
     @property
-    def interestShortfalls(self):
+    def interestShortfalls(self) -> dict:
         '''
         Return dict of each recorded period's interest shortfall.
         '''
         return self._interestShortfalls
 
     @interestShortfalls.setter
-    def interestShortfalls(self, interest_shortfall, period):
+    def interestShortfalls(self, interest_shortfall: float, period: int):
         '''
         Set interest shortfall for a given period.
         '''
@@ -244,7 +244,7 @@ class StandardTranche(Tranche):
         else:
             self._interestShortfalls[period] = interest_shortfall
 
-    def getNotional(self):
+    def getNotional(self) -> float or int:
         '''
         Return the notional of tranche.
         '''
@@ -258,7 +258,7 @@ class StandardTranche(Tranche):
         '''
         self._period += 1
 
-    def makePrincipalPayment(self, principal_due, principal_pmt, period):
+    def makePrincipalPayment(self, principal_due: float or int, principal_pmt: float or int, period: int):
         '''
         Record principal payment for current time period.
         '''
@@ -300,7 +300,7 @@ class StandardTranche(Tranche):
                         self._prinShortfalls[period] = principal_due - principal_pmt
                     self._prinDue[period] = principal_due
 
-    def makeInterestPayment(self, interest_due, interest_pmt, period):
+    def makeInterestPayment(self, interest_due: float or int, interest_pmt: float or int, period: int):
         '''
         Record interest payment for current time period.
         '''
@@ -339,7 +339,7 @@ class StandardTranche(Tranche):
                         # interest shortfall this period
                         self._interestShortfalls[period] = interest_due - interest_pmt
 
-    def notionalBalance(self, period):
+    def notionalBalance(self, period: int) -> float or int:
         '''
         Return the notional amount still owed to the tranche for the current period (after any payments made).
         '''
@@ -359,7 +359,7 @@ class StandardTranche(Tranche):
             # Case Study had originally said
             return self._notional - total_prin_pmts + self._prinShortfalls[period]
 
-    def interestDue(self, period):
+    def interestDue(self, period: int) -> float:
         '''
         Return the interest due for the current period.
         '''

@@ -71,7 +71,7 @@ class StructuredSecurities(object):
         each tranche for a given time period
     '''
 
-    def __init__(self, total_notional, mode):
+    def __init__(self, total_notional: float or int, mode: str):
         '''
         Initialize variables.
         '''
@@ -134,14 +134,14 @@ class StructuredSecurities(object):
     # getters/setters
 
     @property
-    def total_notional(self):
+    def total_notional(self) -> float or int:
         '''
         Return the total notional amount.
         '''
         return self._totalNotional
 
     @total_notional.setter
-    def total_notional(self, itotal_notional):
+    def total_notional(self, itotal_notional: float or int):
         '''
         Set the total notional amount.
         '''
@@ -155,14 +155,14 @@ class StructuredSecurities(object):
             self._totalNotional = itotal_notional
 
     @property
-    def tranche_list(self):
+    def tranche_list(self) -> list:
         '''
         Return the list of Tranche objects.
         '''
         return self._tranche_list
 
     @tranche_list.setter
-    def tranche_list(self, itranche_list):
+    def tranche_list(self, itranche_list: list):
         '''
         Set the list of Tranche objects.
         '''
@@ -178,27 +178,28 @@ class StructuredSecurities(object):
             self._tranche_list = itranche_list
 
     @property
-    def subordination_levels(self):
+    def subordination_levels(self) -> list:
         '''
         Return the list of subordination levels.
         '''
         return self._subordination_levels
 
     @property
-    def reserve_account(self):
+    def reserve_account(self) -> float:
         '''
         Return the reserve account amount for the current period.
         '''
         return self._reserve_account
 
     @property
-    def relaxation_coefs(self):
+    def relaxation_coefs(self) -> list:
         '''
         Return the list of each tranche's relaxation coefficient.
         '''
         return self._relaxation_coefs
 
-    def addTranche(self, tranche_class, rate, subordination_level, notional_percent, relaxationCoef):
+    def addTranche(self, tranche_class: str, rate: float, subordination_level: str, notional_percent: float,
+                   relaxationCoef: float):
         '''
         Instantiate and add a tranche to internal list of tranches.
         '''
@@ -234,7 +235,7 @@ class StructuredSecurities(object):
             # append tranche to list of tranches
             self._tranche_list.append(tranche)
 
-    def modeForPrincipalDue(self, mode):
+    def modeForPrincipalDue(self, mode: str):
         '''
         Select approach, 'Sequential' or 'Pro Rata', for determining principal due.
         '''
@@ -253,7 +254,7 @@ class StructuredSecurities(object):
         for tranche in self._tranche_list:
             tranche.increaseTimePeriod()
 
-    def makePayments(self, cash_amount, loan_pool, recoveries):
+    def makePayments(self, cash_amount: float or int, loan_pool: LoanPool, recoveries: float):
         '''
         Cycle through tranches, in order of subordination, and pay off interest and then repeat for principal.
         '''
@@ -350,7 +351,7 @@ class StructuredSecurities(object):
                 # add to cash reserves
                 self._reserve_account = cash_amount
 
-    def getWaterfall(self):
+    def getWaterfall(self) -> list:
         '''
         Return list of lists containing Interest Due, Interest Paid, Interest Shortfall, Principal Paid, and Balance for
         each tranche for a given time period.

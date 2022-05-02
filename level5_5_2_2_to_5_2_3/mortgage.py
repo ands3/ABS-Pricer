@@ -32,7 +32,7 @@ class MortgageMixin(object):
     # 2.2.7 b
     ##############
 
-    def __init__(self, home, term, rate, face):
+    def __init__(self, home, term: int, rate: float, face: float or int):
         '''
         Initialize variables.
         '''
@@ -42,7 +42,7 @@ class MortgageMixin(object):
     # 4.2.3 b
     ################
 
-    def PMI(self, period):
+    def PMI(self, period: int) -> None or float:
         '''
         Return the PMI in a given period.
         '''
@@ -63,7 +63,7 @@ class MortgageMixin(object):
                       'method calcMonthlyPmt(), which gives {LTV}.')
         return .000075 * self._asset.asset if LTV >= .8 else 0.0
 
-    def monthlyPayment(self, period):
+    def monthlyPayment(self, period: int) -> float:
         '''
         Return the monthly payment of the loan while accounting for period-dependent loan types.
         '''
@@ -76,7 +76,7 @@ class MortgageMixin(object):
     # 4.2.3 b
     ################
 
-    def principalDue(self, period):
+    def principalDue(self, period: int) -> None or float or int:
         '''
         Return the principal due in a given period using formula.
         '''

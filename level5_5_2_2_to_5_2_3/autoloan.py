@@ -28,7 +28,7 @@ class AutoLoan(FixedRateLoan):
     # 2.2.7 c
     ##############
 
-    def __init__(self, car, term, rate, face, recovery_rate):
+    def __init__(self, car, term: int, rate: float, face: float, recovery_rate: float):
         '''
         Initialize variables.
         '''

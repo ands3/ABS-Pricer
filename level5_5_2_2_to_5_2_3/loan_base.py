@@ -107,7 +107,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 a)
     ###########
 
-    def __init__(self, asset, term, rate, face, recovery_rate):
+    def __init__(self, asset: Asset, term: int, rate: float, face: float or int, recovery_rate: float):
         '''
         Initialize variables.
         '''
@@ -161,7 +161,7 @@ class Loan(object):
     # 4.3.7
     ##########
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         Return the str value of the Loan object.
         '''
@@ -174,9 +174,9 @@ class Loan(object):
     ###########
 
     @property
-    def asset(self):
+    def asset(self) -> Asset:
         '''
-        Return the term of the loan.
+        Return the Asset object.
         '''
         return self._asset
 
@@ -184,9 +184,9 @@ class Loan(object):
     ###########
 
     @asset.setter
-    def asset(self, iasset):
+    def asset(self, iasset: Asset):
         '''
-        Set the term of the loan.
+        Set the Asset object.
         '''
         # iasset is not an Asset type
         if not isinstance(iasset, Asset):
@@ -199,14 +199,14 @@ class Loan(object):
             self._asset = iasset
 
     @property
-    def term(self):
+    def term(self) -> int:
         '''
         Return the term of the loan.
         '''
         return self._term
 
     @term.setter
-    def term(self, iterm):
+    def term(self, iterm: int):
         '''
         Set the term of the loan.
         '''
@@ -219,14 +219,14 @@ class Loan(object):
             self._term = iterm
 
     @property
-    def rate(self):
+    def rate(self) -> float:
         '''
         Return the rate used in the loan.
         '''
         return self._rate
 
     @rate.setter
-    def rate(self, irate):
+    def rate(self, irate: float):
         '''
         Set the rate used in the loan.
         '''
@@ -239,14 +239,14 @@ class Loan(object):
             self._rate = irate
 
     @property
-    def face(self):
+    def face(self) -> float or int:
         '''
         Return the face value / principal of the loan.
         '''
         return self._face
 
     @face.setter
-    def face(self, iface):
+    def face(self, iface: float or int):
         '''
         Set the face value / principal of the loan.
         '''
@@ -262,14 +262,14 @@ class Loan(object):
     ###########
 
     @property
-    def defaultPeriod(self):
+    def defaultPeriod(self) -> int:
         '''
         Return the default period of the loan.
         '''
         return self._defaultPeriod
 
     @property
-    def recoveryPercent(self):
+    def recoveryPercent(self) -> float:
         '''
         Return percent of current assets value that can be recovered.
         '''
@@ -278,7 +278,7 @@ class Loan(object):
     # 4.2.3 a (previously 2.2.1)
     ################
 
-    def getRate(self, period):
+    def getRate(self, period: int):
         '''
         Overridden by derived classes, where its functionality is returning the annualized interest rate for the given
         period.
@@ -290,7 +290,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b)
     ################
 
-    def monthlyPayment(self, period):
+    def monthlyPayment(self, period: int) -> None or float:
         '''
         Return the monthly payment of the loan while accounting for period-dependent loan types.
         '''
@@ -305,7 +305,7 @@ class Loan(object):
     # Part 3.4 (previously 4.2.3 b)
     ################
 
-    def totalPayments(self, period):
+    def totalPayments(self, period: int) -> None or float:
         '''
         Return the total payments of the loan while accounting for period-dependent monthly payments.
         '''
@@ -323,7 +323,7 @@ class Loan(object):
                       f'{monthlyPmt}, and multiplies this by the term of the loan to get the total payments.')
         return monthlyPmt * (self._defaultPeriod - 1)
 
-    def totalInterest(self, period):
+    def totalInterest(self, period: int) -> None or float:
         '''
         Return the total interest of the loan while accounting for period-dependent monthly payments.
         '''
@@ -344,7 +344,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b, c and e)
     ###################
 
-    def interestDueRecursive(self, period):
+    def interestDueRecursive(self, period: int) -> None or int or float:
         '''
         Wrap logs around interestDue_recursive() to avoid displaying recursive logs hundreds of times and then call it.
         '''
@@ -376,7 +376,7 @@ class Loan(object):
                           'interest rate and the previous balance to get the interest due.')
             return self.interestDue_recursive(period)
 
-    def interestDue_recursive(self, period):
+    def interestDue_recursive(self, period: int) -> float:
         '''
         Return the interest due in a given period using recursion.
         '''
@@ -392,7 +392,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b and c)
     ###########
 
-    def interestDue_formula(self, period):
+    def interestDue_formula(self, period: int) -> None or int or float:
         '''
         Return the interest due in a given period using formula.
         '''
@@ -431,7 +431,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b, c and e)
     ############
 
-    def principalDueRecursive(self, period):
+    def principalDueRecursive(self, period: int) -> None or int or float:
         '''
         Wrap logs around principalDue_recursive() to avoid displaying recursive logs hundreds of times and then call it.
         '''
@@ -453,7 +453,7 @@ class Loan(object):
             return self.principalDue_recursive(period)
         # period is greater than 0 but less than or equal to the term
         else:
-            logging.warn('For even moderate periods, principalDue_recursive() function will be expected to take a long '
+            logging.warning('For even moderate periods, principalDue_recursive() function will be expected to take a long '
                          'time. It is strongly recommended to use principalDue() function, which will be significantly '
                          'faster.')
             logging.debug('principalDue_recursive() function calculates principal due as the product of monthly payment'
@@ -466,7 +466,7 @@ class Loan(object):
                           'calcMonthlyPmt().')
             return self.principalDue_recursive(period)
 
-    def principalDue_recursive(self, period):
+    def principalDue_recursive(self, period: int) -> float:
         '''
         Return the principal due in a given period using recursion.
         '''
@@ -480,7 +480,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b and c)
     #############
 
-    def principalDue(self, period):
+    def principalDue(self, period: int) -> None or int or float:
         '''
         Return the principal due in a given period using formula.
         '''
@@ -521,7 +521,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b, c and e)
     #################
 
-    def balanceRecursive(self, period):
+    def balanceRecursive(self, period: int) -> None or int or float:
         '''
         Wrap logs around balance_recursive() to avoid displaying recursive logs hundreds of times and then call it.
         '''
@@ -543,7 +543,7 @@ class Loan(object):
             return self.balance_recursive(period)
         # period is 0, or is greater than 0 but less than or equal to the term
         else:
-            logging.warn('For even moderate periods, balance_recursive() function will be expected to take a long time.'
+            logging.warning('For even moderate periods, balance_recursive() function will be expected to take a long time.'
                          ' It is strongly recommended to use balance_formula() function, which will be significantly '
                          'faster.')
             logging.debug('balance_recursive() function calculates the balance as the difference between the previous '
@@ -554,7 +554,7 @@ class Loan(object):
                           'method uses the static-level method monthlyRate().')
             return self.balance_recursive(period)
 
-    def balance_recursive(self, period):
+    def balance_recursive(self, period: int) -> int or float:
         '''
         Return the balance in a given period using recursion.
         '''
@@ -572,7 +572,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b and c)
     ############
 
-    def balance_formula(self, period):
+    def balance_formula(self, period: int) -> None or int or float:
         '''
         Return the balance in a given period using formula.
         '''
@@ -615,7 +615,7 @@ class Loan(object):
     #############
 
     @classmethod
-    def calcMonthlyPmt(cls, face, rate, term):
+    def calcMonthlyPmt(cls, face: int or float, rate: float, term: int) -> None or float:
         '''
         Return the monthly payment given the face, rate and term of the loan.
         '''
@@ -642,7 +642,7 @@ class Loan(object):
     ###########
 
     @classmethod
-    def calcBalance(cls, face, rate, term, period):
+    def calcBalance(cls, face: float or int, rate: float, term: int, period: int) -> None or float or int:
         '''
         Return the balance for a given period given the face, rate and term of the loan.
         '''
@@ -695,7 +695,7 @@ class Loan(object):
             return face * (1 + m_rate) ** period - monthlyPmt * ((1 + m_rate) ** period - 1) / m_rate
 
     # 4.2.3 b and c (previously 2.2.1)
-    def balance(self, period):
+    def balance(self, period: int) -> None or int or float:
         '''
         Return the balance for a given period.
         '''
@@ -727,7 +727,7 @@ class Loan(object):
             return self.calcBalance(self._face, self.getRate(period), self._term, period)
 
     @staticmethod
-    def monthlyRate(annual_rate):
+    def monthlyRate(annual_rate: float) -> float:
         '''
         Return the monthly interest rate given an annual interest rate.
         '''
@@ -739,7 +739,7 @@ class Loan(object):
         return annual_rate / 12
 
     @staticmethod
-    def annualRate(monthly_rate):
+    def annualRate(monthly_rate: float) -> float:
         '''
         Return the annual interest rate given a monthly interest rate.
         '''
@@ -753,7 +753,7 @@ class Loan(object):
     # Case Study (previously 4.2.3 b and c)
     #############
 
-    def recoveryValue(self, period):
+    def recoveryValue(self, period: int) -> None or float:
         '''
         Return the recovery amount, i.e. the amount that can recovered if the borrower defaults, of the assets in its
         current state in given the period.
@@ -791,7 +791,7 @@ class Loan(object):
     # 4.2.3 b and c (previously 2.2.7 e)
     #############
 
-    def equity(self, period):
+    def equity(self, period: int) -> None or float or int:
         '''
         Return the available equity in the given the period.
         '''
@@ -824,7 +824,7 @@ class Loan(object):
     # Case Study
     ###################
 
-    def checkDefault(self, period, num):
+    def checkDefault(self, period: int, num: float or int) -> float:
         '''
         Return whether or not the loan defaults in the given period.
         '''

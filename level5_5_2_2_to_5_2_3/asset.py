@@ -40,7 +40,7 @@ class Asset(object):
         return current assets value
     '''
 
-    def __init__(self, asset, depr_rate):
+    def __init__(self, asset: float, depr_rate: float):
         '''
         Initialize variables.
         '''
@@ -64,7 +64,7 @@ class Asset(object):
     # 4.2.3 a
     ############
 
-    def __str__(self):
+    def __str__(self) -> str:
         '''
         Return the str value of the Asset object.
         '''
@@ -73,14 +73,14 @@ class Asset(object):
     # getters/setters
 
     @property
-    def asset(self):
+    def asset(self) -> float:
         '''
         Return the initial assets value.
         '''
         return self._asset
 
     @asset.setter
-    def asset(self, iasset):
+    def asset(self, iasset: float):
         '''
         Set the initial assets value.
         '''
@@ -107,7 +107,7 @@ class Asset(object):
     #############
 
     @staticmethod
-    def monthlyDeprRate(ann_depr_rate):
+    def monthlyDeprRate(ann_depr_rate: float) -> None or float:
         '''
         Return the monthly depreciation rate given the annual depreciation rate.
         '''
@@ -119,7 +119,7 @@ class Asset(object):
         return ann_depr_rate / 12
 
     # 2.1.6 d
-    def currAssetVal(self, t):
+    def currAssetVal(self, t: int) -> None or float:
         '''
         Return the value of the assets at period t, accounting for depreciation.
         '''
