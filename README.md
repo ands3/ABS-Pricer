@@ -19,4 +19,4 @@ UPDATES
 
 1/9/2021: replaced numpy with numpy_financial
 
-5/2/2022: adding in typing... work in progress...
+5/2/2022: added in typing
