@@ -78,7 +78,7 @@ class LoanPool(object):
     # Case Study
     #########
 
-    def __init__(self, loan_active, loan_ids, *args):
+    def __init__(self, loan_active: list, loan_ids: list, *args):
         '''
         Initialize variables.
         '''
@@ -163,14 +163,14 @@ class LoanPool(object):
             self._loan_pool = iloan_pool
 
     @property
-    def loan_active(self):
+    def loan_active(self) -> list:
         '''
         Return the list of loans' period of activity up to current period.
         '''
         return self._loan_active
 
     @loan_active.setter
-    def loan_active(self, iloan_active):
+    def loan_active(self, iloan_active: list):
         '''
         Set the list of loans' period of activity up to current period.
         '''
@@ -186,7 +186,7 @@ class LoanPool(object):
     ###########
 
     @property
-    def loan_ids(self):
+    def loan_ids(self) -> list:
         '''
         Return the list of loan IDs.
         '''
@@ -195,7 +195,7 @@ class LoanPool(object):
     # 2.2.5 a
     #############
 
-    def totalLoanPrincipal(self):
+    def totalLoanPrincipal(self) -> float or int:
         '''
         Return the total loan principal.
         '''
@@ -205,7 +205,7 @@ class LoanPool(object):
     # 2.2.5 b
     #############
 
-    def totalLoanBalance(self, period):
+    def totalLoanBalance(self, period: int) -> None or float or int:
         '''
         Return the total balance of all loans in the loan pool at the time of the given period.
         '''
@@ -221,7 +221,7 @@ class LoanPool(object):
     # Case Study (previously 2.2.5 c)
     #############
 
-    def aggPrincipalDue(self, period):
+    def aggPrincipalDue(self, period: int) -> None or int or float:
         '''
         Return aggregate principal due of all loans in the loan pool in the given period.
         '''
@@ -237,7 +237,7 @@ class LoanPool(object):
     # Case Study
     #########
 
-    def aggInterestDue(self, period):
+    def aggInterestDue(self, period: int) -> None or float:
         '''
         Return aggregate interest due of all loans in the loan pool in the given period.
         '''
@@ -253,7 +253,7 @@ class LoanPool(object):
     # Case Study
     #########
 
-    def aggTotalPmtDue(self, period):
+    def aggTotalPmtDue(self, period: int) -> None or float:
         '''
         Return aggregate total payment due of all loans in the loan pool in the given period.
         '''
@@ -269,7 +269,7 @@ class LoanPool(object):
     # 2.2.5 d
     #############
 
-    def numActiveLoans(self):
+    def numActiveLoans(self) -> int:
         '''
         Return the number of 'active' loans.
         '''
@@ -279,7 +279,7 @@ class LoanPool(object):
     # 2.2.5 e
     #############
 
-    def WAM(self):
+    def WAM(self) -> float:
         '''
         Return the Weighted Average Maturity (WAM) of the loans in the loan pool.
         '''
@@ -289,7 +289,7 @@ class LoanPool(object):
         # get WAM
         return WeightedAverageMaturity(mortgage_terms)
 
-    def WAR(self):
+    def WAR(self) -> float:
         '''
         Return the Weighted Average Rate (WAR) of the loans in the loan pool.
         '''
@@ -302,7 +302,7 @@ class LoanPool(object):
     # Case Study
     ###########
 
-    def getWaterfall(self, period):
+    def getWaterfall(self, period: int) -> list:
         '''
         Return list of lists containing Principal Due, Interest Due, and Loan Balance for each loan for a given time
         period.
@@ -315,7 +315,7 @@ class LoanPool(object):
             # balance
             ln.balance_formula(period + active)] for ln, active in zip(self._loan_pool, self._loan_active)]
 
-    def checkDefaults(self, period):
+    def checkDefaults(self, period: int) -> float:
         '''
         Generate a uniform random integer for each loan that has the same odds as the default probability for the given
         time period and then call each loan's checkDefault() method with the generated uniform random integer.

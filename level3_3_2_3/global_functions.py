@@ -11,7 +11,7 @@ sumproduct function:
 We write a function that takes a number and a tuple of two numbers, adds the first number to the product of the numbers 
 in the tuple, and returns the resulting sum
 ================================================='''
-def sumproduct(total, num_pair):
+def sumproduct(total: int or float, num_pair: tuple) -> float:
     '''
     Output the result of total + num1*num2
 
@@ -43,7 +43,7 @@ WeightedAverageMaturity function:
 We write a function that takes a list of mortgage tuples (amount, rate, term) and outputs the Weighted Average Maturity 
 using the reduce function and a regular function, sumproduct, as its callable
 ================================================='''
-def WeightedAverageMaturity(mortgage_terms):
+def WeightedAverageMaturity(mortgage_terms: list) -> float:
     '''
     Output the Weighted Average Maturity (term)
 
@@ -98,7 +98,7 @@ WeightedAverageRate function:
 We write a function that takes a list of mortgage tuples (amount, rate, term) and outputs the Weighted Average Rate 
 using the reduce function with lambda callable
 ================================================='''
-def WeightedAverageRate(mortgage_terms):
+def WeightedAverageRate(mortgage_terms: list) -> float:
     '''
     Output the Weighted Average Rate
 
