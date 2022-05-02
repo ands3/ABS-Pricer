@@ -22,7 +22,7 @@ class Car(Asset):
         return yearly depreciation rate
     '''
 
-    def annualDeprRate(self):
+    def annualDeprRate(self) -> float:
         '''
         Return the annual depreciation rate.
         '''

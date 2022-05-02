@@ -78,7 +78,7 @@ class LoanPool(object):
     # Case Study
     #########
 
-    def __init__(self, loan_active: list, loan_ids: list, *args):
+    def __init__(self, loan_active: list, loan_ids: list, *args: list or tuple):
         '''
         Initialize variables.
         '''
@@ -143,14 +143,14 @@ class LoanPool(object):
     # getters/setters
 
     @property
-    def loan_pool(self):
+    def loan_pool(self) -> tuple or list:
         '''
         Return LoanPool object.
         '''
         return self._loan_pool
 
     @loan_pool.setter
-    def loan_pool(self, iloan_pool):
+    def loan_pool(self, iloan_pool: tuple or list):
         '''
         Set LoanPool object.
         '''

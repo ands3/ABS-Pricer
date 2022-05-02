@@ -43,7 +43,7 @@ WeightedAverageMaturity function:
 We write a function that takes a list of mortgage tuples (amount, rate, term) and outputs the Weighted Average Maturity 
 using the reduce function and a regular function, sumproduct, as its callable
 ================================================='''
-def WeightedAverageMaturity(mortgage_terms: list) -> float:
+def WeightedAverageMaturity(mortgage_terms: list) -> float or None:
     '''
     Output the Weighted Average Maturity (term)
 
@@ -98,7 +98,7 @@ WeightedAverageRate function:
 We write a function that takes a list of mortgage tuples (amount, rate, term) and outputs the Weighted Average Rate 
 using the reduce function with lambda callable
 ================================================='''
-def WeightedAverageRate(mortgage_terms: list) -> float:
+def WeightedAverageRate(mortgage_terms: list) -> float or None:
     '''
     Output the Weighted Average Rate
 
@@ -144,6 +144,7 @@ def WeightedAverageRate(mortgage_terms: list) -> float:
     total_mortgage = sum(amounts)
 
     # Weighted Average Rate
-    war = reduce(lambda total, amount_rate: total + amount_rate[0]*amount_rate[1], zip(amounts, rates), 0.0) / total_mortgage
+    war = reduce(lambda total, amount_rate: total + amount_rate[0]*amount_rate[1], zip(amounts, rates), 0.0) / \
+          total_mortgage
 
     return war

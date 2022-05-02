@@ -82,7 +82,7 @@ class Timer(object):
     # 4.2.2 b (previously 4.2.1)
     ##############
 
-    def __exit__(self, *args):
+    def __exit__(self, *args: list):
         '''
         Exit the context manager and stop the timer. Time taken displayed using warn-level log statement if it exceeds
         threshold.
@@ -110,7 +110,7 @@ class Timer(object):
         Allows Timer class to work as a decorator.
         '''
         @wraps(f)
-        def wrapped(*args, **kwargs):
+        def wrapped(*args: list, **kwargs: dict):
             '''
             Wrap Timer class around function f.
             '''
