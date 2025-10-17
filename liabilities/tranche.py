@@ -180,7 +180,7 @@ class Tranche(object):
     #############
 
     @classmethod
-    def AL(cls, prinPmts: float, notional: float or int, balance: float or int) -> None or float:
+    def AL(cls, prinPmts: dict[int, float], notional: float or int, balance: float or int) -> None or float:
         '''
         Return the average life (AL).
         '''
@@ -191,3 +191,4 @@ class Tranche(object):
                           'their respective periods and then dividing by the tranche notional.')
             # cf. https://stackoverflow.com/questions/4093989/dot-product-in-python
             return reduce(operator.add, map(operator.mul, prinPmts.keys(), prinPmts.values())) / notional
+
